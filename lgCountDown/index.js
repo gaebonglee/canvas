@@ -1,4 +1,4 @@
-import Particle from "./js/particle.js";
+import Particle from "./js/Particle.js";
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -21,7 +21,7 @@ function init() {
 }
 
 function createRing() {
-  const PARTICLE_NUM = 1;
+  const PARTICLE_NUM = 20;
   for (let i = 0; i < PARTICLE_NUM; i++) {
     particles.push(new Particle());
   }
@@ -37,9 +37,9 @@ function render() {
     delta = now - then;
     if (delta < interval) return;
 
-    particles.forEach((particles, index) => {
-      particles.update();
-      particles.draw(ctx);
+    particles.forEach((particle, index) => {
+      particle.update();
+      particle.draw(ctx);
     });
 
     then = now - (delta % interval);
