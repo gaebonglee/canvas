@@ -5,4 +5,26 @@ body {
   height: 100%;
   overflow: hidden;
   background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#ring {
+  position: absolute;
+  width: 52.2vh;
+  height: 52.2vh;
+}
+#countDown {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+#countDown > span {
+  position: absolute;
+  font-size: 7rem;
+  transform: scale(5);
+  opacity: 0;
 }
