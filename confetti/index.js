@@ -17,17 +17,11 @@ function init() {
   canvas.width = canvasWidth * dpr;
   canvas.height = canvasHeight * dpr;
   ctx.scale(dpr, dpr);
-
-  confetti({
-    x: canvasWidth / 2,
-    y: canvasHeight / 2,
-    count: 10,
-  });
 }
 
-function confetti({ x, y, count }) {
+function confetti({ x, y, count, deg }) {
   for (let i = 0; i < count; i++) {
-    particles.push(new Particle(x, y));
+    particles.push(new Particle(x, y, deg));
   }
 }
 
@@ -53,6 +47,14 @@ function render() {
   requestAnimationFrame(frame);
 }
 
+window.addEventListener("click", () => {
+  confetti({
+    x: 0,
+    y: canvasHeight / 2,
+    count: 10,
+    deg: -50,
+  });
+});
 window.addEventListener("resize", init);
 
 window.addEventListener("load", () => {
