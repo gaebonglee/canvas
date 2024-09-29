@@ -53,6 +53,7 @@ window.addEventListener("click", () => {
     y: canvasHeight / 2,
     count: 10,
     deg: -50,
+    colors: ["#FF0000"],
   });
 });
 window.addEventListener("resize", init);
