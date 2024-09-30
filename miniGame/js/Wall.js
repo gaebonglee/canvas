@@ -18,13 +18,17 @@ export default class Wall {
     this.width = App.height * this.sizeX;
     this.height = App.height;
     this.gapY = randomNumBetween(App.height * 0.2, App.height * 0.35);
-    this.gapY = App.height * 0.35;
 
-    this.x = 0;
+    this.x = App.width;
     this.y1 = -this.height + randomNumBetween(30, App.height - this.gapY - 30);
     this.y2 = this.y1 + this.height + this.gapY;
   }
-  update() {}
+  get isOutside() {
+    return this.x + this.width < 0;
+  }
+  update() {
+    this.x += -6;
+  }
   draw() {
     App.ctx.drawImage(
       this.img,

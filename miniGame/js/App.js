@@ -14,9 +14,8 @@ export default class App {
       new Background({ img: document.querySelector("#bg3-img"), speed: -1 }),
       new Background({ img: document.querySelector("#bg2-img"), speed: -2 }),
       new Background({ img: document.querySelector("#bg1-img"), speed: -3 }),
-
     ];
-    this.walls = [new Wall({type:'SMALL'})]
+    this.walls = [new Wall({ type: "SMALL" })];
     window.addEventListener("resize", this.resize.bind(this));
   }
 
@@ -46,10 +45,12 @@ export default class App {
         background.draw();
       });
 
-      this.walls.forEach(wall =>{
-        wall.update()
-        wall.draw()
-      })
+      this.walls.forEach((wall) => {
+        wall.update();
+        wall.draw();
+//화면에서 나가게 되면 false => true 로 바뀌면서 콘솔로그 확인 가능
+        console.log(wall.isOutside);
+      });
 
       then = now - (delta % App.interval);
     };
