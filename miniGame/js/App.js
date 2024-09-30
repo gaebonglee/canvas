@@ -52,7 +52,17 @@ export default class App {
         // console.log(this.walls[i].isOutside);
 
         //벽 제거
-        if (this.walls[i].isOutside) this.walls.splice(i, 1);
+        if (this.walls[i].isOutside) {
+          this.walls.splice(i, 1);
+          continue;
+        }
+        // 새로운 벽 생성
+        if (this.walls[i].canGenerateNext) {
+          this.walls[i].generatedNext = true;
+          this.walls.push(
+            new Wall({ type: Math.random() > 0.3 ? "SMALL" : "BIG" })
+          );
+        }
       }
 
       then = now - (delta % App.interval);
