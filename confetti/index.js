@@ -19,9 +19,9 @@ function init() {
   ctx.scale(dpr, dpr);
 }
 
-function confetti({ x, y, count, deg }) {
+function confetti({ x, y, count, deg, colors, shapes }) {
   for (let i = 0; i < count; i++) {
-    particles.push(new Particle(x, y, deg));
+    particles.push(new Particle(x, y, deg, colors, shapes));
   }
 }
 
@@ -49,11 +49,10 @@ function render() {
 
 window.addEventListener("click", () => {
   confetti({
-    x: 0,
-    y: canvasHeight / 2,
+    x: 0, //0~1
+    y: 0.5, //0~1
     count: 10,
     deg: -50,
-    colors: ["#FF0000"],
   });
 });
 window.addEventListener("resize", init);
