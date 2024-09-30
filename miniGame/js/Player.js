@@ -1,4 +1,5 @@
 import App from "./App.js";
+import BoundingBox from "./BoundingBox.js";
 export default class Player {
   constructor() {
     this.img = document.querySelector("#bird-img");
@@ -7,13 +8,17 @@ export default class Player {
     this.width = 130;
     this.height = this.width * (96 / 140);
 
+    this.boundingBox = new BoundingBox(this.x, this.y, this.width, this.height);
+
     this.counter = 0;
     this.frameX = 0;
 
-    this.vy = 0;
-    this.gravity = 0.3;
+    this.vy = -8;
+    this.gravity = 0.15;
+    this.lift = -4.5;
+
     App.canvas.addEventListener("click", () => {
-        this.vy += -5
+      this.vy = this.lift;
     });
   }
   update() {
@@ -22,8 +27,11 @@ export default class Player {
       this.frameX += 1;
       if (this.frameX === 15) this.frameX = 0;
     }
+
     this.vy += this.gravity;
     this.y += this.vy;
+
+    this.boundingBox.y = this.y;
   }
   draw() {
     App.ctx.drawImage(
@@ -37,5 +45,6 @@ export default class Player {
       this.width,
       this.height
     );
+    this.boundingBox.draw();
   }
 }

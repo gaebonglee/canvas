@@ -45,14 +45,13 @@ export default class App {
 
       //배경 관련
       this.backgrounds.forEach((background) => {
-        // background.update();
+        background.update();
         background.draw();
       });
       //벽 관련
       for (let i = this.walls.length - 1; i >= 0; i--) {
         // this.walls[i].update();
-        // this.walls[i].draw();
-        // console.log(this.walls[i].isOutside);
+        this.walls[i].draw();
 
         //벽 제거
         if (this.walls[i].isOutside) {
@@ -65,6 +64,10 @@ export default class App {
           this.walls.push(
             new Wall({ type: Math.random() > 0.3 ? "SMALL" : "BIG" })
           );
+        }
+        //벽과 플레이어 충돌관련
+        if (this.walls[i].isColliding(this.player.boundingBox)) {
+         
         }
       }
       //플레이어 관련
