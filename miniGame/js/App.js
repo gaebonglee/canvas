@@ -40,17 +40,20 @@ export default class App {
 
       App.ctx.clearRect(0, 0, App.width, App.height);
 
+      //배경 관련
       this.backgrounds.forEach((background) => {
         // background.update();
         background.draw();
       });
+      //벽 관련
+      for (let i = this.walls.length - 1; i >= 0; i--) {
+        this.walls[i].update();
+        this.walls[i].draw();
+        // console.log(this.walls[i].isOutside);
 
-      this.walls.forEach((wall) => {
-        wall.update();
-        wall.draw();
-//화면에서 나가게 되면 false => true 로 바뀌면서 콘솔로그 확인 가능
-        console.log(wall.isOutside);
-      });
+        //벽 제거
+        if (this.walls[i].isOutside) this.walls.splice(i, 1);
+      }
 
       then = now - (delta % App.interval);
     };
