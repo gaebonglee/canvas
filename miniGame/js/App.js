@@ -1,4 +1,5 @@
 import Background from "./Background.js";
+import Player from "./Player.js";
 import Wall from "./Wall.js";
 
 export default class App {
@@ -16,6 +17,8 @@ export default class App {
       new Background({ img: document.querySelector("#bg1-img"), speed: -3 }),
     ];
     this.walls = [new Wall({ type: "SMALL" })];
+
+    this.player = new Player();
     window.addEventListener("resize", this.resize.bind(this));
   }
 
@@ -35,7 +38,7 @@ export default class App {
     const frame = () => {
       requestAnimationFrame(frame);
       now = Date.now();
-      delta = now - delta;
+      delta = now - then;
       if (delta < App.interval) return;
 
       App.ctx.clearRect(0, 0, App.width, App.height);
@@ -47,8 +50,8 @@ export default class App {
       });
       //벽 관련
       for (let i = this.walls.length - 1; i >= 0; i--) {
-        this.walls[i].update();
-        this.walls[i].draw();
+        // this.walls[i].update();
+        // this.walls[i].draw();
         // console.log(this.walls[i].isOutside);
 
         //벽 제거
@@ -64,7 +67,9 @@ export default class App {
           );
         }
       }
-
+      //플레이어 관련
+      this.player.update();
+      this.player.draw();
       then = now - (delta % App.interval);
     };
     requestAnimationFrame(frame);
