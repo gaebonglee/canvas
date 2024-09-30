@@ -59,8 +59,6 @@ export default class Wall {
     this.boundingBox1.x = this.boundingBox2.x = this.x + 30;
   }
   draw() {
-    this.x = 700;
-    this.boundingBox1.x = this.boundingBox2.x = this.x + 30;
     App.ctx.drawImage(
       this.img,
       this.sx,

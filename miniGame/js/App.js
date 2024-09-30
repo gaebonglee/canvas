@@ -50,7 +50,7 @@ export default class App {
       });
       //벽 관련
       for (let i = this.walls.length - 1; i >= 0; i--) {
-        // this.walls[i].update();
+        this.walls[i].update();
         this.walls[i].draw();
 
         //벽 제거
@@ -67,7 +67,9 @@ export default class App {
         }
         //벽과 플레이어 충돌관련
         if (this.walls[i].isColliding(this.player.boundingBox)) {
-         
+          this.player.boundingBox.color = `rgba(255,0,0,0.3)`;
+        } else {
+          this.player.boundingBox.color = `rgba(0,0,255,0.3)`;
         }
       }
       //플레이어 관련
