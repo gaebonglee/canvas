@@ -19,15 +19,16 @@ function init() {
   ctx.scale(dpr, dpr);
 }
 
-function confetti({ x, y, count, deg, colors, shapes }) {
+function confetti({ x, y, count, deg, colors, shapes, spread }) {
   for (let i = 0; i < count; i++) {
-    particles.push(new Particle(x, y, deg, colors, shapes));
+    particles.push(new Particle(x, y, deg, colors, shapes, spread));
   }
 }
 
 function render() {
   let now, delta;
   let then = Date.now();
+  let deg = 0
 
   const frame = () => {
     requestAnimationFrame(frame);
@@ -37,9 +38,55 @@ function render() {
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
+    deg +=1
+
+    //양옆에서 나올 수 있게 연출
+
+    // confetti({
+    //   x: 0, //0~1
+    //   y: 0.5, //0~1
+    //   count: 5,
+    //   deg: -50,
+    // });
+
+    // confetti({
+    //   x: 1, //0~1
+    //   y: 0.5, //0~1
+    //   count: 5,
+    //   deg: -130,
+    // });
+
+    //회전하는 빵빠레
+    confetti({
+      x: 0.5, //0~1
+      y: 0.5, //0~1 
+      count: 5,
+      deg: 225 + deg,
+      spread: 1,
+    });
+
+    confetti({
+      x: 0.5, //0~1
+      y: 0.5, //0~1
+      count: 5,
+      deg: 90 + deg,
+      spread: 1,
+    });
+
+    confetti({
+      x: 0.5, //0~1
+      y: 0.5, //0~1
+      count: 5,
+      deg: 315 + deg,
+      spread: 1,
+    });
+
     for (let i = particles.length - 1; i >= 0; i--) {
       particles[i].update();
       particles[i].draw(ctx);
+
+      if(particles[i].opacity < 0) particles.splice(i,1)
+        if(particles[i].y > canvasHeight) particles.splice(i,1)
     }
 
     then = now - (delta % interval);
@@ -53,6 +100,7 @@ window.addEventListener("click", () => {
     y: 0.5, //0~1
     count: 10,
     deg: -50,
+    spread: 15,
   });
 });
 window.addEventListener("resize", init);

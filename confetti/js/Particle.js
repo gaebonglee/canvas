@@ -1,9 +1,9 @@
 import { hexToRgb, randomNumBetween } from "./Utils.js";
 
 export default class Particle {
-  constructor(x, y, deg = 0, colors, shapes) {
-    this.angle = (Math.PI / 180) * randomNumBetween(deg - 30, deg + 30);
-    this.r = randomNumBetween(30, 100);
+  constructor(x, y, deg = 0, colors, shapes, spread = 30) {
+    this.angle = (Math.PI / 180) * randomNumBetween(deg - spread, deg + spread);
+    this.r = randomNumBetween(spread, 100);
     this.x = x * innerWidth;
     this.y = y * innerHeight;
 
