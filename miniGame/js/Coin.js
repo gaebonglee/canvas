@@ -1,18 +1,27 @@
 import App from "./App.js";
 
 export default class Coin {
-  constructor() {
+  constructor(x, y, vx) {
     this.img = document.querySelector("#coin-img");
+
+    this.x = x;
+    this.y = y;
+    this.width = 50;
+    this.height = 50;
+
     this.counter = 0;
     this.frameX = 0;
+
+    this.vx = vx;
   }
   update() {
-    if (++this.counter % 2 === 0) {
+    if (++this.counter % 4 === 0) {
       // this.frameX += 1;
       // if (this.frameX === 10) this.frameX = 0;
       // 위 코드를 아래와 같이 작성할 수 있음
       this.frameX = ++this.frameX % 10;
     }
+    this.x += this.vx;
   }
   draw() {
     App.ctx.drawImage(
@@ -21,10 +30,10 @@ export default class Coin {
       0,
       this.img.width / 10,
       this.img.height,
-      100,
-      100,
-      100,
-      100
+      this.x - this.width / 2,
+      this.y - this.height / 2,
+      this.width,
+      this.height
     );
   }
 }

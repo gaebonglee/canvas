@@ -24,6 +24,8 @@ export default class Wall {
     this.y1 = -this.height + randomNumBetween(30, App.height - this.gapY - 30);
     this.y2 = this.y1 + this.height + this.gapY;
 
+    this.vx = -6;
+
     this.generatedNext = false;
     this.gapNextX = App.width * randomNumBetween(0.55, 0.75);
 
@@ -55,7 +57,7 @@ export default class Wall {
     );
   }
   update() {
-    this.x += -8;
+    this.x += this.vx;
     this.boundingBox1.x = this.boundingBox2.x = this.x + 30;
   }
   draw() {

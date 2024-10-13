@@ -20,7 +20,7 @@ export default class App {
     this.walls = [new Wall({ type: "SMALL" })];
 
     this.player = new Player();
-    this.coins = [new Coin()];
+    this.coins = [];
     window.addEventListener("resize", this.resize.bind(this));
   }
 
@@ -63,9 +63,16 @@ export default class App {
         // 새로운 벽 생성
         if (this.walls[i].canGenerateNext) {
           this.walls[i].generatedNext = true;
-          this.walls.push(
-            new Wall({ type: Math.random() > 0.3 ? "SMALL" : "BIG" })
-          );
+          const newWall = new Wall({
+            type: Math.random() > 0.3 ? "SMALL" : "BIG",
+          });
+          this.walls.push(newWall);
+          //코인 생성
+          if (Math.random() < 1) {
+            const x = newWall.x + newWall.width / 2;
+            const y = newWall.y2 - newWall.gapY / 2;
+            this.coins.push(new Coin(x, y, newWall.vx));
+          }
         }
         //벽과 플레이어 충돌관련
         if (this.walls[i].isColliding(this.player.boundingBox)) {
@@ -79,9 +86,9 @@ export default class App {
       this.player.draw();
 
       //코인 관련
-      for ( let i = this.coins.length -1; i >=0; i--) {
-        this.coins[i].update()
-        this.coins[i].draw()
+      for (let i = this.coins.length - 1; i >= 0; i--) {
+        this.coins[i].update();
+        this.coins[i].draw();
       }
       then = now - (delta % App.interval);
     };
