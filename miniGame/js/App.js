@@ -19,12 +19,15 @@ export default class App {
       new Background({ img: document.querySelector("#bg2-img"), speed: -2 }),
       new Background({ img: document.querySelector("#bg1-img"), speed: -3 }),
     ];
-    this.walls = [new Wall({ type: "SMALL" })];
+    this.gameHandler = new GameHandler(this);
+    this.reset()
+  }
 
+  reset() {
+    this.walls = [new Wall({ type: "SMALL" })];
     this.player = new Player();
     this.coins = [];
     this.score = new Score();
-    this.gameHandler = new GameHandler();
   }
 
   init() {
@@ -81,13 +84,12 @@ export default class App {
         }
         //벽과 플레이어 충돌관련
         if (this.walls[i].isColliding(this.player.boundingBox)) {
-          this.player.boundingBox.color = `rgba(255,0,0,0.3)`;
-        } else {
-          this.player.boundingBox.color = `rgba(0,0,255,0.3)`;
+          this.gameHandler.status = "FINISHED";
+          break;
         }
       }
       //플레이어 관련
-      // this.player.update();
+      this.player.update();
       this.player.draw();
 
       //코인 관련

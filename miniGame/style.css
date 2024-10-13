@@ -22,7 +22,8 @@ main {
   overflow: hidden;
 }
 
-.ready-screen, .finish-screen {
+.ready-screen,
+.finish-screen {
   position: absolute;
   left: 0;
   top: 0;
@@ -34,10 +35,7 @@ main {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
-
-.ready-screen {
-  display: none;
+  user-select: none;
 }
 
 .title-img {

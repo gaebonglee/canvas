@@ -1,5 +1,6 @@
 export default class GameHandler {
-  constructor() {
+  constructor(app) {
+    this.app = app;
     this._status = "READY"; //READY, PLAYING, FINISHED
 
     this.init();
@@ -31,7 +32,7 @@ export default class GameHandler {
     this.coinText = this.finishScreen.querySelector(".coin");
     this.replayBtn = this.finishScreen.querySelector(".replay-img");
     this.replayBtn.addEventListener("click", () => {
-      this.hideReadyScreen();
+      this.hideFinishScreen();
     });
     this.status = "READY";
   }
@@ -60,6 +61,9 @@ export default class GameHandler {
     });
   }
   showFinishScreen() {
+    this.distanceText.innerText = Math.floor(this.app.score.distCount) + "m";
+    this.coinText.innerText = this.app.score.coinCount + "coin";
+
     gsap.fromTo(
       this.finishScreen,
       { opacity: 0 },
@@ -101,5 +105,17 @@ export default class GameHandler {
       }
     );
   }
-  hideReadyScreen() {}
+  hideFinishScreen() {
+    gsap.fromTo(
+      this.finishScreen,
+      { opacity: 1 },
+      {
+        opacity: 0,
+        pointerEvents: "none",
+        duration: 0.1,
+      }
+    );
+    this.status = "PLAYING";
+    this.app.reset();
+  }
 }
