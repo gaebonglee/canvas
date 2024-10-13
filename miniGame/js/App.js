@@ -45,7 +45,7 @@ export default class App {
       delta = now - then;
       if (delta < App.interval) return;
 
-      if (this.gameHandler.status !== "PLAYING") return;
+      if (this.gameHandler._status !== "PLAYING") return;
 
       App.ctx.clearRect(0, 0, App.width, App.height);
 
