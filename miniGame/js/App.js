@@ -20,7 +20,7 @@ export default class App {
       new Background({ img: document.querySelector("#bg1-img"), speed: -3 }),
     ];
     this.gameHandler = new GameHandler(this);
-    this.reset()
+    this.reset();
   }
 
   reset() {
@@ -91,6 +91,13 @@ export default class App {
       //플레이어 관련
       this.player.update();
       this.player.draw();
+
+      if (
+        this.player.y >= App.height ||
+        this.player.y + this.player.height <= 0
+      ) {
+        this.gameHandler.status = "FINISHED";
+      }
 
       //코인 관련
       for (let i = this.coins.length - 1; i >= 0; i--) {
