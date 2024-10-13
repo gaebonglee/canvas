@@ -3,6 +3,7 @@ import Coin from "./Coin.js";
 import Player from "./Player.js";
 import Wall from "./Wall.js";
 import Score from "./Score.js";
+import GameHandler from "./GameHandler.js";
 
 export default class App {
   static canvas = document.querySelector("canvas");
@@ -22,19 +23,18 @@ export default class App {
 
     this.player = new Player();
     this.coins = [];
-    this.score = new Score()
-    window.addEventListener("resize", this.resize.bind(this));
+    this.score = new Score();
+    this.gameHandler = new GameHandler();
   }
 
-  resize() {
+  init() {
     App.canvas.width = App.width * App.dpr;
     App.canvas.height = App.height * App.dpr;
     App.ctx.scale(App.dpr, App.dpr);
-
-    const width =
-      innerWidth > innerHeight ? innerHeight * 0.9 : innerWidth * 0.9;
-    App.canvas.style.width = width + "px";
-    App.canvas.style.height = width * (3 / 4) + "px";
+    //배경 관련
+    this.backgrounds.forEach((background) => {
+      background.draw();
+    });
   }
   render() {
     let now, delta;
@@ -45,6 +45,8 @@ export default class App {
       delta = now - then;
       if (delta < App.interval) return;
 
+      if (this.gameHandler.status !== "PLAYING") return;
+
       App.ctx.clearRect(0, 0, App.width, App.height);
 
       //배경 관련
@@ -52,6 +54,7 @@ export default class App {
         background.update();
         background.draw();
       });
+
       //벽 관련
       for (let i = this.walls.length - 1; i >= 0; i--) {
         this.walls[i].update();
@@ -98,13 +101,13 @@ export default class App {
         }
         if (this.coins[i].boundingBox.isColliding(this.player.boundingBox)) {
           this.coins.splice(i, 1);
+          this.score.coinCount += 1;
         }
-      
       }
       //점수 관련
-      this.score.update()
-      this.score.draw()
-      
+      this.score.update();
+      this.score.draw();
+
       then = now - (delta % App.interval);
     };
     requestAnimationFrame(frame);
