@@ -82,15 +82,24 @@ export default class App {
         }
       }
       //플레이어 관련
-      // this.player.update();
+      this.player.update();
       this.player.draw();
 
       //코인 관련
       for (let i = this.coins.length - 1; i >= 0; i--) {
         this.coins[i].update();
         this.coins[i].draw();
+
+        if (this.coins[i].x + this.coins[i].width < 0) {
+          this.coins.splice(i, 1);
+          continue;
+        }
+        if (this.coins[i].boundingBox.isColliding(this.player.boundingBox)) {
+          console.log("플레이어와 코인의 충돌");
+          this.coins.splice(i, 1);
+        }
+        then = now - (delta % App.interval);
       }
-      then = now - (delta % App.interval);
     };
     requestAnimationFrame(frame);
   }
