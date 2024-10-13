@@ -84,7 +84,7 @@ export default class Wall {
       this.height
     );
 
-    this.boundingBox1.draw();
-    this.boundingBox2.draw();
+    // this.boundingBox1.draw();
+    // this.boundingBox2.draw();
   }
 }

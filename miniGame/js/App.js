@@ -2,6 +2,7 @@ import Background from "./Background.js";
 import Coin from "./Coin.js";
 import Player from "./Player.js";
 import Wall from "./Wall.js";
+import Score from "./Score.js";
 
 export default class App {
   static canvas = document.querySelector("canvas");
@@ -21,6 +22,7 @@ export default class App {
 
     this.player = new Player();
     this.coins = [];
+    this.score = new Score()
     window.addEventListener("resize", this.resize.bind(this));
   }
 
@@ -82,7 +84,7 @@ export default class App {
         }
       }
       //플레이어 관련
-      this.player.update();
+      // this.player.update();
       this.player.draw();
 
       //코인 관련
@@ -95,11 +97,15 @@ export default class App {
           continue;
         }
         if (this.coins[i].boundingBox.isColliding(this.player.boundingBox)) {
-          console.log("플레이어와 코인의 충돌");
           this.coins.splice(i, 1);
         }
-        then = now - (delta % App.interval);
+      
       }
+      //점수 관련
+      this.score.update()
+      this.score.draw()
+      
+      then = now - (delta % App.interval);
     };
     requestAnimationFrame(frame);
   }

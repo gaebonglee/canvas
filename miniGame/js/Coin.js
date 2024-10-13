@@ -4,7 +4,7 @@ import BoundingBox from "./BoundingBox.js";
 export default class Coin {
   constructor(x, y, vx) {
     this.img = document.querySelector("#coin-img");
-    
+
     this.width = 50;
     this.height = 50;
     this.x = x - this.width / 2;
@@ -38,6 +38,6 @@ export default class Coin {
       this.width,
       this.height
     );
-    this.boundingBox.draw();
+    // this.boundingBox.draw();
   }
 }
