@@ -1,4 +1,5 @@
 import Background from "./Background.js";
+import Coin from "./Coin.js";
 import Player from "./Player.js";
 import Wall from "./Wall.js";
 
@@ -19,6 +20,7 @@ export default class App {
     this.walls = [new Wall({ type: "SMALL" })];
 
     this.player = new Player();
+    this.coins = [new Coin()];
     window.addEventListener("resize", this.resize.bind(this));
   }
 
@@ -73,8 +75,14 @@ export default class App {
         }
       }
       //플레이어 관련
-      this.player.update();
+      // this.player.update();
       this.player.draw();
+
+      //코인 관련
+      for ( let i = this.coins.length -1; i >=0; i--) {
+        this.coins[i].update()
+        this.coins[i].draw()
+      }
       then = now - (delta % App.interval);
     };
     requestAnimationFrame(frame);
